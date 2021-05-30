@@ -1,8 +1,10 @@
+# Inspiração para Insert, tutorial oficial da PostegreSQL: https://www.postgresqltutorial.com/postgresql-python/insert/
+import psycopg2
 import sys
 import os
 sys.path.append(os.path.realpath(os.path.dirname(__file__)))
-
 from config_db import connect
+
 
 # Utilizado para as operações de INSERT, UPDATE e DELETE
 def executar_query(sql):
@@ -30,6 +32,49 @@ def executar_query(sql):
         return False
     return True
 
+
+def insert_query(sql, data_cliente):
+    """
+    Executa um INSERT query.\n
+
+    Argumentos:
+
+    sql -- INSERT SQL Query
+
+    data_cliente -- Dicionário com informações sobre o cliente: (Sobrenome, Primeiro Nome, CPF)
+
+    data_cliente = { 'sobrenome': 'da Silva', 'primeiro_nome': 'Tiago', 'cpf':'111.111.111-11' }
+
+    Obs.: CPF no formato string
+
+    Retorno:
+
+    ID gerado automaticamente pela base
+    """
+    # Estamos adicionando essa linha para que após a inserção do registro
+    # seja retorna o id do cliente adicionado
+    sql = sql + ' RETURNING id_cliente'
+    try:
+        # Realiza a conexão com a Base de Dados
+        conexao = connect()
+        cur = conexao.cursor()
+        # Forma segura que passar parâmetro para uma query SQL
+        # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
+        # Executa a query
+        cur.execute(sql, (data_cliente['sobrenome'], data_cliente['primeiro_nome'], data_cliente['cpf']))
+        # Recupera o valor do id_cliente gerado automaticamente pela base
+        id_cliente = cur.fetchone()[0]
+        print(id_cliente)
+        cur.close();
+        # Realiza o commit da operação
+        conexao.commit()
+        # Encerra a conexão
+        conexao.close()
+    except:
+        raise Exception(psycopg2.DatabaseError)
+        print(error)
+    return id_cliente
+
 # Utilizado com a operação de SELECT
 def select_query(sql, id=None):
     """
@@ -43,7 +88,7 @@ def select_query(sql, id=None):
 
     Retorno:
 
-    Registros
+    Registros da tabela na Base de exemplo
     """    
     try:
         # Realiza a conexão com a Base de Dados
@@ -61,7 +106,7 @@ def select_query(sql, id=None):
             cur.execute(sql, str(id))
             # Busca apenas um registro
             record = cur.fetchone()
-        # fecha a conexão
+        # Encerra a conexão
         cur.close();
         conexao.close()
     except:
