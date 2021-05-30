@@ -1,4 +1,6 @@
-# Inspiração para Insert, tutorial oficial da PostegreSQL: https://www.postgresqltutorial.com/postgresql-python/insert/
+# Inspiração para INSERT: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/insert/
+# Inspiração para UPDATE: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/update/
+# Inspiração para DELETE: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/update/
 import psycopg2
 import sys
 import os
@@ -33,6 +35,50 @@ def executar_query(sql):
     return True
 
 
+
+# Utilizado com a operação de UPDATE
+def update_query(sql, id_cliente, data_cliente):
+    """
+    Executa um UPDATE query.\n
+
+    Argumentos:
+
+    sql -- UPDATE SQL Query
+
+    id_cliente -- ID cliente que será atualizado
+
+    data_cliente -- Dicionário com informações sobre o cliente: (Sobrenome, Primeiro Nome, CPF)
+
+    data_cliente = { 'sobrenome': 'da Silva', 'primeiro_nome': 'Tiago', 'cpf':'111.111.111-11' }
+
+    Obs.: CPF no formato string
+
+    Retorno:
+
+    Quantidade de registros alterados
+    """
+    try:
+        # Realiza a conexão com a Base de Dados
+        conexao = connect()
+        cur = conexao.cursor()
+        # Forma segura que passar parâmetro para uma query SQL
+        # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
+        # Executa a query
+        cur.execute(sql, (data_cliente['sobrenome'], data_cliente['primeiro_nome'], data_cliente['cpf'], id_cliente))
+        # Qtd de resgistros alterados
+        update_rows = cur.rowcount
+        cur.close();
+        # Realiza o commit da operação
+        conexao.commit()
+        # Encerra a conexão
+        conexao.close()
+    except:
+        raise Exception(psycopg2.DatabaseError)
+        print(error)
+    return update_rows
+
+
+# Utilizado com a operação de INSERT
 def insert_query(sql, data_cliente):
     """
     Executa um INSERT query.\n
@@ -74,6 +120,43 @@ def insert_query(sql, data_cliente):
         raise Exception(psycopg2.DatabaseError)
         print(error)
     return id_cliente
+
+
+# Utilizado com a operação de DELETE
+def delete_query(sql, id_cliente):
+    """
+    Executa um DELETE query.\n
+
+    Argumentos:
+
+    sql -- DELETE SQL Query
+
+    id_cliente -- ID cliente que será deletado
+
+    Retorno:
+
+    Quantidade de registros alterados
+    """
+    try:
+        # Realiza a conexão com a Base de Dados
+        conexao = connect()
+        cur = conexao.cursor()
+        # Forma segura que passar parâmetro para uma query SQL
+        # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
+        # Executa a query
+        cur.execute(sql, (id_cliente,))
+        # Qtd de registros deletados
+        deleted_rows = cur.rowcount
+        cur.close();
+        # Realiza o commit da operação
+        conexao.commit()
+        # Encerra a conexão
+        conexao.close()
+    except:
+        raise Exception(psycopg2.DatabaseError)
+        print(error)
+    return deleted_rows
+
 
 # Utilizado com a operação de SELECT
 def select_query(sql, id=None):
