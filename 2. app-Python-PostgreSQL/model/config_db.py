@@ -1,9 +1,8 @@
+# Arquivo inspirado no tutorial oficial da PostegreSQL: https://www.postgresqltutorial.com/postgresql-python/connect/
 from configparser import ConfigParser
 from sys import path
 import psycopg2
 import os
-
-# Arquivo inspirado no tutorial oficial da PostegreSQL: https://www.postgresqltutorial.com/postgresql-python/connect/
 
 def config(filename='./model/database.ini', section='postgresql'):
     """
