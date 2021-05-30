@@ -6,6 +6,19 @@ from config_db import connect
 
 # Utilizado para as operações de INSERT, UPDATE e DELETE
 def executar_query(sql):
+    """
+    Executa a query de uma conexão PostgreSQL.\n
+    Operações suportadas: INSERT, UPDATE e DELETE
+
+    Argumentos:
+
+    sql -- Query SQL
+
+    Retorno:
+
+    Definir.
+    """
+
     try:
         conexao = connect()
         cur = conexao.cursor()
@@ -19,24 +32,48 @@ def executar_query(sql):
 
 # Utilizado com a operação de SELECT
 def select_query(sql, id=None):
+    """
+    Executa um SELECT query em uma conexão PostgreSQL.\n
+
+    Argumentos:
+
+    sql -- SELECT Query SQL (por simplificação, não existe verificação)
+
+    id -- Valor a ser buscado, se None, retorna tudo
+
+    Retorno:
+
+    Registros
+    """    
     try:
+        # Realiza a conexão com a Base de Dados
         conexao = connect()
         cur = conexao.cursor()
         if id==None:
-            print(2)
+            # Executa a query
             cur.execute(sql)
+            # Busca todos os registros
+            record = cur.fetchall()
         else:
-            print(1)
+            # Forma segura que passar parâmetro para uma query SQL
+            # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
+            # Executa a query
             cur.execute(sql, str(id))
-        record = cur.fetchall()
+            # Busca apenas um registro
+            record = cur.fetchone()
+        # fecha a conexão
         cur.close();
         conexao.close()
     except:
         return False
+    # Retorna a resposta da Base de Dados
     return record
 
 
 def teste_visualizar_tabelas():
+    """
+    Apenas uma função de teste que retorna todo o conteudo das três tabelas da Base de Exemplo.
+    """  
     
     # tbl_clientes
     colunas_clientes = ['sobrenome', 'nome', 'cpf', 'id_cliente']
