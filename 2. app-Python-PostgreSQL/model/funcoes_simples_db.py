@@ -1,81 +1,13 @@
 # Inspiração para INSERT: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/insert/
 # Inspiração para UPDATE: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/update/
-# Inspiração para DELETE: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/update/
+# Inspiração para DELETE: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/delete/
+# Inspiração para SELECT: tutorial oficial da PostegreSQL - https://www.postgresqltutorial.com/postgresql-python/query/
 import psycopg2
 import sys
 import os
 sys.path.append(os.path.realpath(os.path.dirname(__file__)))
 from config_db import connect
 
-
-# Utilizado para as operações de INSERT, UPDATE e DELETE
-def executar_query(sql):
-    """
-    Executa a query de uma conexão PostgreSQL.\n
-    Operações suportadas: INSERT, UPDATE e DELETE
-
-    Argumentos:
-
-    sql -- Query SQL
-
-    Retorno:
-
-    Definir.
-    """
-
-    try:
-        conexao = connect()
-        cur = conexao.cursor()
-        cur.execute(sql)
-        cur.close();
-        conexao.commit()
-        conexao.close()
-    except:
-        return False
-    return True
-
-
-
-# Utilizado com a operação de UPDATE
-def update_query(sql, id_cliente, data_cliente):
-    """
-    Executa um UPDATE query.\n
-
-    Argumentos:
-
-    sql -- UPDATE SQL Query
-
-    id_cliente -- ID cliente que será atualizado
-
-    data_cliente -- Dicionário com informações sobre o cliente: (Sobrenome, Primeiro Nome, CPF)
-
-    data_cliente = { 'sobrenome': 'da Silva', 'primeiro_nome': 'Tiago', 'cpf':'111.111.111-11' }
-
-    Obs.: CPF no formato string
-
-    Retorno:
-
-    Quantidade de registros alterados
-    """
-    try:
-        # Realiza a conexão com a Base de Dados
-        conexao = connect()
-        cur = conexao.cursor()
-        # Forma segura que passar parâmetro para uma query SQL
-        # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
-        # Executa a query
-        cur.execute(sql, (data_cliente['sobrenome'], data_cliente['primeiro_nome'], data_cliente['cpf'], id_cliente))
-        # Qtd de resgistros alterados
-        update_rows = cur.rowcount
-        cur.close();
-        # Realiza o commit da operação
-        conexao.commit()
-        # Encerra a conexão
-        conexao.close()
-    except:
-        raise Exception(psycopg2.DatabaseError)
-        print(error)
-    return update_rows
 
 
 # Utilizado com a operação de INSERT
@@ -120,6 +52,48 @@ def insert_query(sql, data_cliente):
         raise Exception(psycopg2.DatabaseError)
         print(error)
     return id_cliente
+
+
+# Utilizado com a operação de UPDATE
+def update_query(sql, id_cliente, data_cliente):
+    """
+    Executa um UPDATE query.\n
+
+    Argumentos:
+
+    sql -- UPDATE SQL Query
+
+    id_cliente -- ID cliente que será atualizado
+
+    data_cliente -- Dicionário com informações sobre o cliente: (Sobrenome, Primeiro Nome, CPF)
+
+    data_cliente = { 'sobrenome': 'da Silva', 'primeiro_nome': 'Tiago', 'cpf':'111.111.111-11' }
+
+    Obs.: CPF no formato string
+
+    Retorno:
+
+    Quantidade de registros alterados
+    """
+    try:
+        # Realiza a conexão com a Base de Dados
+        conexao = connect()
+        cur = conexao.cursor()
+        # Forma segura que passar parâmetro para uma query SQL
+        # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
+        # Executa a query
+        cur.execute(sql, (data_cliente['sobrenome'], data_cliente['primeiro_nome'], data_cliente['cpf'], id_cliente))
+        # Qtd de resgistros alterados
+        update_rows = cur.rowcount
+        cur.close();
+        # Realiza o commit da operação
+        conexao.commit()
+        # Encerra a conexão
+        conexao.close()
+    except:
+        raise Exception(psycopg2.DatabaseError)
+        print(error)
+    return update_rows
 
 
 # Utilizado com a operação de DELETE
@@ -197,38 +171,66 @@ def select_query(sql, id=None):
     # Retorna a resposta da Base de Dados
     return record
 
-
+# Função criada apenas para fornecer vizualização de todas as tabelas da Base de exemplo
 def teste_visualizar_tabelas():
     """
     Apenas uma função de teste que retorna todo o conteudo das três tabelas da Base de Exemplo.
     """  
     
-    # tbl_clientes
+    # Nome das colunas da tabela de clientes
     colunas_clientes = ['sobrenome', 'nome', 'cpf', 'id_cliente']
+    # Query para visualização de todos os registros da tabela de clientes
     resp_cli = select_query('Select * from tbl_clientes')
+
+    # Construção de uma lista com os registros convertidos para um dicionário
     lista_dict_cli = []
     for linha in resp_cli:
         lista_dict_cli.append( dict( zip( colunas_clientes, linha) ) )
 
+    # Problemas para entender o que aconteceu aqui com o lista_dict_cli? 
+    # Click aqui e simule passo a passo neste notebook no Colab:
+    # https://colab.research.google.com/drive/1OhXGNc4E9BeGGRb70ZHhMRj3HU1lwHbI?usp=sharing
+
+    # Exibe lista no console
+    print('Tabela Clientes')
     print(lista_dict_cli)
-    # problemas para entender o que aconteceu aqui? Click aqui e simule passo a passo:
+    print('') # Espaço para melhor visibilidade no console
+    
     # colocar um notebook aqui!!!!!!!!!@###
 
-    # tbl_quartos
+    # Nome das colunas da tabela de quartos
     colunas_quartos = ['id_quarto', 'tipo', 'andar', 'tipo_cama', 'n_pessoas_max', 'descricao']
+    # Query para visualização de todos os registros da tabela de quartos
     resp_qua = select_query('Select * from tbl_quartos')
+
+    # Construção de uma lista com os registros convertidos para um dicionário
     lista_dict_qua = []
     for linha in resp_qua:
         lista_dict_qua.append( dict( zip( colunas_quartos, linha) ) )
 
+    # Problemas para entender o que aconteceu aqui com o lista_dict_qua? 
+    # Click aqui e simule passo a passo neste notebook no Colab:
+    # https://colab.research.google.com/drive/1OhXGNc4E9BeGGRb70ZHhMRj3HU1lwHbI?usp=sharing
+
+    # Exibe lista no console
+    print('Tabela Quartos')
     print(lista_dict_qua)
+    print('') # Espaço para melhor visibilidade no console
 
-
-    # tbl_reservas
+    # Nome das colunas da tabela de reserva
     colunas_reservas = ['data_entrada', 'data_saida', 'id_cliente', 'id_quarto', 'id_reserva', 'observacoes']
+    # Query para visualização de todos os registros da tabela de reservas
     resp_res = select_query('Select * from tbl_reserva')
+
+    # Construção de uma lista com os registros convertidos para um dicionário
     lista_dict_res = []
     for linha in resp_res:
         lista_dict_res.append( dict( zip( colunas_reservas, linha) ) )
 
+    # Problemas para entender o que aconteceu aqui com o lista_dict_res? 
+    # Click aqui e simule passo a passo neste notebook no Colab:
+    # https://colab.research.google.com/drive/1OhXGNc4E9BeGGRb70ZHhMRj3HU1lwHbI?usp=sharing
+
+    # Exibe lista no console
+    print('Tabela Quartos')
     print(lista_dict_res)
