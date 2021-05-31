@@ -146,7 +146,7 @@ def select_query(sql, id=None):
     Retorno:
 
     Registros da tabela na Base de exemplo
-    """    
+    """ 
     try:
         # Realiza a conexão com a Base de Dados
         conexao = connect()
@@ -167,7 +167,7 @@ def select_query(sql, id=None):
         cur.close();
         conexao.close()
     except:
-        return False
+        raise Exception(psycopg2.DatabaseError)
     # Retorna a resposta da Base de Dados
     return record
 
