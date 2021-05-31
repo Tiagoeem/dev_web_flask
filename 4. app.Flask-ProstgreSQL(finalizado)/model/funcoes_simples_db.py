@@ -100,7 +100,7 @@ def update_query(sql, data):
 
 
 # Utilizado com a operação de DELETE
-def delete_query(sql, id_cliente):
+def delete_query(sql, id):
     """
     Executa um DELETE query.\n
 
@@ -122,7 +122,7 @@ def delete_query(sql, id_cliente):
         # Forma segura que passar parâmetro para uma query SQL
         # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
         # Executa a query
-        cur.execute(sql, (id_cliente,))
+        cur.execute(sql, (id,))
         # Qtd de registros deletados
         deleted_rows = cur.rowcount
         cur.close();
@@ -137,7 +137,7 @@ def delete_query(sql, id_cliente):
 
 
 # Utilizado com a operação de SELECT
-def select_query(sql, id=None):
+def select_query(sql, id=0):
     """
     Executa um SELECT query em uma conexão PostgreSQL.\n
 
@@ -156,7 +156,7 @@ def select_query(sql, id=None):
         # Realiza a conexão com a Base de Dados
         conexao = connect()
         cur = conexao.cursor()
-        if id==None:
+        if id==0:
             # Executa a query
             cur.execute(sql)
             # Busca todos os registros
@@ -165,14 +165,19 @@ def select_query(sql, id=None):
             # Forma segura que passar parâmetro para uma query SQL
             # Evitando SQL Injection, mais infos em https://realpython.com/prevent-python-sql-injection/
             # Executa a query
-            cur.execute(sql, str(id))
+            cur.execute(sql, (id,))
             # Busca apenas um registro
             record = cur.fetchone()
+        # Se não encontrou nenhum registro, sucesso é False. 
+        # Atenção: Não encontrar registro não gera erro, por isso não irá passar pelo "except"
+        if record==None:
+            sucesso = False
         # Encerra a conexão
         cur.close();
         conexao.close()
     except:
         sucesso = False
+        record = None
         print(psycopg2.DatabaseError) # Apenas print do erro, tratamento nas próximas aulas
     # Retorna a resposta da Base de Dados
     return record, sucesso
