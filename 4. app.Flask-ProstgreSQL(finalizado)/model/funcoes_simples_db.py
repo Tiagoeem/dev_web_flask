@@ -314,3 +314,23 @@ def delete_cliente(id):
     dict_resposta = {'Registros_Deletados': qtd_deletados }
 
     return dict_resposta, sucesso
+
+
+def select_todos_clientes():
+    colunas_clientes = ['sobrenome', 'nome', 'cpf', 'id_cliente']
+    # Query para visualização de todos os registros da tabela de clientes
+    resp_cli, sucesso = select_query('Select * from tbl_clientes')
+
+    if sucesso:
+        # Construção de uma lista com os registros convertidos para um dicionário
+        lista_dict_cli = []
+        for linha in resp_cli:
+            lista_dict_cli.append( dict( zip( colunas_clientes, linha) ) )
+        # Problemas para entender o que aconteceu aqui com o dict_resposta? 
+        # Click aqui e simule passo a passo neste notebook no Colab:
+        # https://colab.research.google.com/drive/1OhXGNc4E9BeGGRb70ZHhMRj3HU1lwHbI?usp=sharing
+        return lista_dict_cli, sucesso
+    else:
+        dict_resposta = {'Erro': 'Sem correspondencia'}
+        return dict_resposta, sucesso
+    

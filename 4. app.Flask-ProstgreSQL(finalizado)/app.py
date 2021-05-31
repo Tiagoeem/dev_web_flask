@@ -1,31 +1,17 @@
-from flask.typing import StatusCode
-from model.funcoes_simples_db import select_cliente, delete_cliente, update_cliente, insert_cliente, teste_visualizar_tabelas, select_query
+from model.funcoes_simples_db import select_cliente, select_todos_clientes, delete_cliente, update_cliente, insert_cliente, teste_visualizar_tabelas, select_query
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
 
-@app.route("/teste_rota/<int:valor>",  )
-def funcao_rota_teste(valor):
-    return valor
-
-
-@app.route('/cliente', methods=['GET'])
+@app.route('/cliente/', methods=['GET'])
 def rota_selecionar_todos_clientes():
-    colunas_clientes = ['sobrenome', 'nome', 'cpf', 'id_cliente']
-    # Query para visualização de todos os registros da tabela de clientes
-    resp_cli, sucesso = select_query('Select * from tbl_clientes')
+    # Função que realiza a qeury para selecionar todos os clientes
+    resp_cli, sucesso = select_todos_clientes()
 
     if sucesso:
         # Construção de uma lista com os registros convertidos para um dicionário
-        lista_dict_cli = []
-        for linha in resp_cli:
-            lista_dict_cli.append( dict( zip( colunas_clientes, linha) ) )
-
-        return jsonify(lista_dict_cli), 200
+        return jsonify(resp_cli), 200
     else:
         return resp_cli, 404
 
@@ -81,21 +67,29 @@ def rota_delete_cliente( id ):
         return resp, 404
 
 
-# Função main para teste dos exemplos
-def main():
-    teste_visualizar_tabelas()
 
-    resp = select_cliente(2)
+# A partir daqui somente rotas de testes com propósito didático, não use como exemplo
 
-    #resp = insert_cliente({'sobrenome':'Soares', 'primeiro_nome':'Rosana', 'cpf':'999.999.999-99'})
+# Apenas rota de teste, pode ser removida posteriormente
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
 
-    #resp = update_cliente(3, {'sobrenome':'do Amaral', 'primeiro_nome':'Tarsila', 'cpf':'999.999.999-99'})
+# Apenas rota de teste e exemplo, pode ser removida posteriormente
+@app.route("/teste_recurso/<int:valor>" )
+def funcao_teste_recurso(valor):
+    return str(valor)
 
-    #resp = delete_cliente(3)
+# Apenas rota de teste e exemplo, pode ser removida posteriormente
+@app.route("/teste_status/<int:valor>" )
+def funcao_teste_status(valor):
+    return str(valor), 203
 
-    print(resp)
-
-
+# Apenas rota de teste e exemplo, pode ser removida posteriormente
+@app.route("/teste_metodo/<int:valor>", methods=['PUT', 'POST'] )
+def funcao_teste_metodo(valor):
+    content = request.data
+    return str(valor) + ' Metodo PUT' + str(content)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
