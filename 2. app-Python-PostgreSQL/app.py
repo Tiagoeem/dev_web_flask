@@ -1,4 +1,4 @@
-from model.funcoes_simples_db import select_query, insert_query, teste_visualizar_tabelas
+from model.funcoes_simples_db import select_query, insert_query, update_query, teste_visualizar_tabelas
 
 
 
@@ -6,7 +6,7 @@ def main():
     # teste_visualizar_tabelas()
     # resp = exemplo_select_cli(1)
     # resp = exemplo_insert_cli({'sobrenome':'Soares', 'primeiro_nome':'Rosana', 'cpf':'999.999.999-99'})
-    resp = 
+    resp = exemplo_update_cli(3, {'sobrenome':'do Amaral', 'primeiro_nome':'Tarsila', 'cpf':'999.999.999-99'})
     print(resp)
 
 
@@ -52,22 +52,23 @@ def exemplo_insert_cli(dados_cliente):
     return dict_resposta
 
 
-
+# Exemplo de uso do UPDATE
+# Para fins didaticos será considerado que sempre será atualizado todos os valores do registro
+# portanto não havera verificações sobre o conteudo do parâmetro  dados_cliente
 def exemplo_update_cli(id, dados_cliente):
     
     # Query de exemplo
-    #query = 'UPDATE tbl_clientes(sobrenome, primeiro_nome, cpf) VALUES (%s, %s, %s)'
-    # Utilizando a função auxiliar para realizar o comando de INSERT
-    id_cli = insert_query(query, dados_cliente)
+    query = 'UPDATE tbl_clientes SET sobrenome = %s, primeiro_nome = %s, cpf = %s WHERE id_cliente = %s'
+    # Utilizando a função auxiliar para realizar o comando de UPDATE
+    qtd_alterada = update_query(query, id, dados_cliente)
     # Verifica se houve resposta da Base com o resltado da pesquisa
-    if id_cli != None:
+    if qtd_alterada > 0:
         # Adiciona id_cliente como chave do dicionário já existente
-        dados_cliente['id_cliente'] = id_cli
         dict_resposta = dados_cliente
     else:
-        dict_resposta = {'Erro': 'Nao foi possivel inserir'}
+        dict_resposta = {'Erro': 'Nao foi possivel alterar o registro'}
 
-    return dict_resposta    
+    return dict_resposta
 
 
 
