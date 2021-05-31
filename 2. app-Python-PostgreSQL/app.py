@@ -1,12 +1,18 @@
-from model.funcoes_simples_db import select_query, insert_query, update_query, teste_visualizar_tabelas
+from model.funcoes_simples_db import select_query, insert_query, update_query, delete_query, teste_visualizar_tabelas
 
 
-
+# Fun;áo main para teste dos exemplos
 def main():
-    # teste_visualizar_tabelas()
-    # resp = exemplo_select_cli(1)
-    # resp = exemplo_insert_cli({'sobrenome':'Soares', 'primeiro_nome':'Rosana', 'cpf':'999.999.999-99'})
-    resp = exemplo_update_cli(3, {'sobrenome':'do Amaral', 'primeiro_nome':'Tarsila', 'cpf':'999.999.999-99'})
+    teste_visualizar_tabelas()
+
+    resp = exemplo_select_cli(2)
+
+    #resp = exemplo_insert_cli({'sobrenome':'Soares', 'primeiro_nome':'Rosana', 'cpf':'999.999.999-99'})
+
+    #resp = exemplo_update_cli(3, {'sobrenome':'do Amaral', 'primeiro_nome':'Tarsila', 'cpf':'999.999.999-99'})
+
+    #resp = exemplo_delete_cli(3)
+
     print(resp)
 
 
@@ -33,7 +39,6 @@ def exemplo_select_cli(id):
 
 
 
-
 # Função com exemplo de uso para a função auxiliar insert_query
 def exemplo_insert_cli(dados_cliente):
 
@@ -50,6 +55,7 @@ def exemplo_insert_cli(dados_cliente):
         dict_resposta = {'Erro': 'Nao foi possivel inserir'}
 
     return dict_resposta
+
 
 
 # Exemplo de uso do UPDATE
@@ -73,7 +79,16 @@ def exemplo_update_cli(id, dados_cliente):
 
 
 def exemplo_delete_cli(id):
-    pass
+    # Query de exemplo
+    query = 'DELETE from tbl_clientes WHERE id_cliente = %s'
+    # Utilizando a função auxiliar para realizar o comando de DELETE
+    qtd_deletados = delete_query(query, id)
+    # Verifica se houve resposta da Base com o resltado da pesquisa
+    dict_resposta = {'Registros_Deletados': qtd_deletados }
+
+    return dict_resposta
+
+
 
 if __name__ == '__main__':
     main()
