@@ -31,3 +31,42 @@ Discutiremos em aula maneiras de comunicar sistemas web através da internet, de
 
 # Exemplo em sala
 
+Baseado nas aulas anteriores, iniciaremos a aula com um código exatamente igual ao encotrado na pasta [2. app-Python-PostgreSQL](https://github.com/Tiagoeem/dev_web_flask/tree/main/2.%20app-Python-PostgreSQL). Este códito é capaz de conectar-se a uma Base de Dados (local, se o arquivo .ini for mantido) PostgreSQL, sem o auxilio de [ORMs](https://www.fullstackpython.com/object-relational-mappers-orms.html) como [SQLAlchemy](https://docs.sqlalchemy.org/en/14/) para não adicionar camadas de abstração e complexidades desnecessárias.
+
+Conceitos de **Programação Orientação a Objetos (POO)** e ***Design Patterns*** seão apresentadas posteriormente no curso e então ORMs farão todo sentido para nós.
+
+Enquanto isso faremos a conexão com a Base de Dados atraves da lib [psycopg2](https://pypi.org/project/psycopg2/) e as funções auxiliares estão escritas com o paradgma estruturado.
+
+## O sistema
+
+O sistema que será trabalhado em sala é de um "micro" hotel, que possuí registro dos quartos que possuem, clientes e reservas. No nosso exemplo trabalharemos principalemente focado na tabela de clientes.
+
+## A Base
+
+O DB utilizado na aula **hotel_dev** possui 3 tabelas: tbl_clientes, tbl_quartos e tbl_reserva. Na imagem abaixo é possivel observar os campos e as relações entre elas. Para carregar em sua base, utilize o dump da base que esta na pasta [1. ambiente virtual + dump BD](https://github.com/Tiagoeem/dev_web_flask/tree/main/1.%20ambiente%20virtual%20%2B%20dump%20BD).
+
+![image](https://user-images.githubusercontent.com/25457273/120267232-ef816c80-c279-11eb-8245-80db13569d12.png)
+
+### tbl_clientes
+
+![image](https://user-images.githubusercontent.com/25457273/120267464-5dc62f00-c27a-11eb-8575-1f3b7573a8de.png)
+
+### tbl_quartos
+
+![image](https://user-images.githubusercontent.com/25457273/120267513-759db300-c27a-11eb-98f7-ed209fff63a1.png)
+
+### tbl_reserva
+
+![image](https://user-images.githubusercontent.com/25457273/120267546-89491980-c27a-11eb-842b-4cea3ba9aca6.png)
+
+## Os arquivos .py
+
+- app.py: Arquivo principal
+- model/cofig_db.py: Arquivo que auxiliar na conexão com a Base de Dados
+- model/funcoes_simples_db.py: Como o nome indica, é um módulo de funções que auxiliam a manipulação das tabelas da Base de Dados. Abstraem operações como SELECT, INSERT, UPDATE e DELETE
+
+
+
+
+
+
