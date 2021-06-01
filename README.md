@@ -65,7 +65,18 @@ O DB utilizado na aula **hotel_dev** possui 3 tabelas: tbl_clientes, tbl_quartos
 - model/cofig_db.py: Arquivo que auxiliar na conexão com a Base de Dados
 - model/funcoes_simples_db.py: Como o nome indica, é um módulo de funções que auxiliam a manipulação das tabelas da Base de Dados. Abstraem operações como SELECT, INSERT, UPDATE e DELETE
 
+## Não entre em pânico!
 
+As funções podem parecer complexas, mas vocês já viramtodas essas operações individualmente. O diagrama a seguir irá ajudar a entender as funções.
+Básicamente, utilizaremos as funções select_cliente(), insert_cliente(), update_cliente() e delete_cliente(), que são as implementações especificas para manipular o recurso cliente (tbl_clientes). As outras funções são implementações genéricas para evitar repetição de excessiva de código em uma implementação completa.
+
+![app_funcs](https://user-images.githubusercontent.com/25457273/120270755-83eecd80-c280-11eb-9735-217eb62c5942.png)
+
+## Onde focaremos esforços?
+
+No arquivo app.py.
+
+Prontos? Façam o download do repositório, prepare o ambiente e bons estudos! :)
 
 
 
