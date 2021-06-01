@@ -1,0 +1,114 @@
+@import url(https://weloveiconfonts.com/api/?family=iconicstroke);
+
+* {
+  padding:0;
+  margin:0;
+  font-family:Helvetica;
+  font-weight:bolder;
+  box-sizing:border-box;
+
+}
+#fondo {
+  width:100vw;
+  height:100vh;
+  display:grid;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(to left, #76C6DE,#DF7176);
+}
+
+#container {
+  display:grid;
+  width: 400px;
+  height: 520px;  
+  padding: 30px 50px;
+  background:linear-gradient(  rgba(250,250,250,0.7),rgba(250,250,250,0),rgba(250,250,250,7)
+  );
+}
+#form {
+  display:grid;
+}
+
+#container h1 {
+  text-align:center;
+
+}
+.input-box {
+  display:grid;
+  position:relative;
+  grid-auto-flow:row;
+  margin:15px 0;
+  grid-row-gap:10px;
+}
+
+.input-box input {
+  height:34px;
+  background:rgba(0,0,0,0);
+  transition:background 0.2s;
+}
+
+.input-box input:focus {
+  outline:none;
+    background:#76C6DE;  
+}
+.input-box i {
+  visibility:hidden;
+  position:absolute;
+  top:36px;
+  right:20px;
+}
+
+.input-box small {
+  visibility:hidden;
+  position:absolute;
+  top:68px;
+  right:20px;
+}
+
+.input-box.exito input {
+  border-color:#ACF33A;
+}
+
+.input-box.error input {
+  border-color:#e74c3c;
+}
+
+.input-box.exito i.iconicstroke-x {
+  color:#ACF33A;
+  visibility:visible;
+}
+.input-box.exito input {
+  background:#cffc88;
+}
+.input-box.error i.iconicstroke-check {  
+  color:#e74c3c;
+  visibility:visible;
+}
+.input-box.error input {
+  background:#df7176;
+}
+
+.input-box.error small {  
+  color:#e74c3c;
+  visibility:visible;
+}
+
+#button {
+  width:100px;
+  height:40px;
+  border-radius:8px;
+  background:linear-gradient(to left, #76C6DE,#DF7176);
+  justify-self:center;
+  transition:background 2s;
+}
+
+#button:focus {
+  outline:red;
+  background:linear-gradient(to right, #76C6DE,#DF7176);
+  color:white;
+}
+
+#button:hover {
+  transform:scale(1.04);
+    background:linear-gradient(to right, #76C6DE,#DF7176);
+}

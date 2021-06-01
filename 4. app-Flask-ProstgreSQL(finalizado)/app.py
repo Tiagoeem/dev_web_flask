@@ -1,7 +1,12 @@
 from model.funcoes_simples_db import select_cliente, select_todos_clientes, delete_cliente, update_cliente, insert_cliente, teste_visualizar_tabelas, select_query
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
-app = Flask(__name__)
+
+app = Flask(__name__, static_url_path='/static')
+
+@app.route('/front/')
+def hello(name=None):
+    return render_template('index.html')
 
 
 @app.route('/cliente/', methods=['GET'])
