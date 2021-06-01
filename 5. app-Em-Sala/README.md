@@ -1,1 +1,1 @@
-# dev_web_flask
+Pasta do pro projeto que será desenvolvido em sala.
