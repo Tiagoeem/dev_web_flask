@@ -1,1 +1,1 @@
-# dev_web_flask
+Mrico Hotel - Aplicação Python + PostgreSQL
