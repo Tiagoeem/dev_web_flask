@@ -18,6 +18,15 @@ Ele precisa de um servidor HTTP para poder receber as requisições HTTP e envia
 
 Entenda um pouco dos mecanismos de um servidor HTTP: https://developer.mozilla.org/pt-BR/docs/Learn/Common_questions/What_is_a_web_server
 
+## Consumindo Serviços Web
+
+JS Vanila: https://developer.mozilla.org/pt-BR/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+
+JQuery: https://spring.io/guides/gs/consuming-rest-jquery/
+
+Python: https://realpython.com/api-integration-in-python/
+
+
 ## Deploy de um serviço web com Flask
 
 - Heroku: https://devcenter.heroku.com/articles/getting-started-with-python
