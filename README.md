@@ -6,15 +6,15 @@ Este repositório foi construído para auxiliar o aluno a compreender o que é u
 
 O repositório está basicamente dividido em três modos principais:
 
-- Material de apoio ao conhecimento prévio para acompanhar a aula. (Apesar de serem assuntos já vistos pelos alunos, é sempre interessante ter um material para rápida consulta)
+- Material de apoio ao conhecimento prévio para acompanhar a aula (Apesar de serem assuntos já vistos pelos alunos, é sempre interessante ter um material para rápida consulta)
   - [0. conhecimento prévio](https://github.com/Tiagoeem/dev_web_flask/tree/main/0.%20conhecimento%20pr%C3%A9vio): Principais links e documentos com todo o conhecimento prévio necessario para aula.
 
 - Pastas com arquivos necessários para acompanhamento da aula, com diversas etapas para referência do aluno durante o desenvolvimento.
   - [1. ambiente virtual + dump BD](https://github.com/Tiagoeem/dev_web_flask/tree/main/1.%20ambiente%20virtual%20%2B%20dump%20BD): Arquivo requirements.txt para instalação dos pacotes no ambiente virtual e Arquivo Dump da base de dados para criação rápida da Base de Dados utilizada em aula.
-  - [2. app-Python-PostgreSQL](https://github.com/Tiagoeem/dev_web_flask/tree/main/2.%20app-Python-PostgreSQL): Aplicação que possui conexão com uma base PostgreSQL, CRUD da tabela de clientes completamente funcional, deve ser usado no terminal.
+  - [2. app-Python-PostgreSQL](https://github.com/Tiagoeem/dev_web_flask/tree/main/2.%20app-Python-PostgreSQL): Aplicação que possui conexão com uma base PostgreSQL, CRUD da tabela de clientes completamente funcional, devendo ser usada no terminal.
   - [3. app-HelloWorld-Flask](https://github.com/Tiagoeem/dev_web_flask/tree/main/3.%20app-HelloWorld-Flask): Aplicação mais simples possivel para execução do Flask, retirado da propria [documentação](https://flask.palletsprojects.com/en/1.1.x/quickstart/)
   - [4. app-Flask-ProstgreSQL(finalizado)](https://github.com/Tiagoeem/dev_web_flask/tree/main/4.%20app-Flask-ProstgreSQL(finalizado)): Aplicação REST utilizando Flask e PostgreSQL, rotas de teste e CRUD de clientes.
-  - [5. app-Em-Sala](https://github.com/Tiagoeem/dev_web_flask/tree/main/5.%20app-Em-Sala): Ponto de partida na sala de aula, esse código idealmente deve sair da versão 2. e chegar até a 4.
+  - [5. app-Em-Sala](https://github.com/Tiagoeem/dev_web_flask/tree/main/5.%20app-Em-Sala): Ponto de partida na sala de aula, esse código idealmente deve sair da versão "2.0" e chegar até a 4.
 
 - Material complementar com o intuito de apresentar ao alunos a continuação do caminho de aprendizado em cada uma das dimensões apresentadas na aula.
   - [6. material complementar](https://github.com/Tiagoeem/dev_web_flask/tree/main/6.%20material%20complementar): Links separados por assuntos, com documentações e tutoriais para a evolução do trabalho realizado em aula.
@@ -33,9 +33,9 @@ Discutiremos em aula maneiras de comunicar sistemas web através da internet, de
 
 Baseado nas aulas anteriores, iniciaremos a aula com um código exatamente igual ao encotrado na pasta [2. app-Python-PostgreSQL](https://github.com/Tiagoeem/dev_web_flask/tree/main/2.%20app-Python-PostgreSQL). Este códito é capaz de conectar-se a uma Base de Dados (local, se o arquivo .ini for mantido) PostgreSQL, sem o auxilio de [ORMs](https://www.fullstackpython.com/object-relational-mappers-orms.html) como [SQLAlchemy](https://docs.sqlalchemy.org/en/14/) para não adicionar camadas de abstração e complexidades desnecessárias.
 
-Conceitos de **Programação Orientação a Objetos (POO)** e ***Design Patterns*** seão apresentadas posteriormente no curso e então ORMs farão todo sentido para nós.
+Conceitos de **Programação Orientação a Objetos (POO)** e ***Design Patterns*** serão apresentadas posteriormente no curso e então ORMs farão todo sentido para nós.
 
-Enquanto isso faremos a conexão com a Base de Dados atraves da lib [psycopg2](https://pypi.org/project/psycopg2/) e as funções auxiliares estão escritas com o paradgma estruturado.
+Enquanto isso faremos a conexão com a Base de Dados atraves da lib [psycopg2](https://pypi.org/project/psycopg2/) e as funções auxiliares estão escritas de forma procedural.
 
 ## O sistema
 
@@ -67,8 +67,8 @@ O DB utilizado na aula **hotel_dev** possui 3 tabelas: tbl_clientes, tbl_quartos
 
 ## Não entre em pânico!
 
-As funções podem parecer complexas, mas vocês já viramtodas essas operações individualmente. O diagrama a seguir irá ajudar a entender as funções.
-Básicamente, utilizaremos as funções select_cliente(), insert_cliente(), update_cliente() e delete_cliente(), que são as implementações especificas para manipular o recurso cliente (tbl_clientes). As outras funções são implementações genéricas para evitar repetição de excessiva de código em uma implementação completa.
+As funções podem parecer complexas, mas vocês já viram todas essas operações individualmente. O diagrama a seguir irá ajudar a entender as funções.
+Básicamente, utilizaremos as funções select_cliente(), insert_cliente(), update_cliente() e delete_cliente(), que são as implementações especificas para manipular o recurso cliente (tbl_clientes). As outras funções são implementações genéricas para evitar repetição excessiva de código em uma implementação completa.
 
 ![app_funcs](https://user-images.githubusercontent.com/25457273/120270755-83eecd80-c280-11eb-9735-217eb62c5942.png)
 
