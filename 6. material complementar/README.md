@@ -31,7 +31,7 @@ Python: https://realpython.com/api-integration-in-python/
 
 - Heroku: https://devcenter.heroku.com/articles/getting-started-with-python
 - Google Cloud: https://cloud.google.com/appengine/docs/standard/python3/runtime
-- https://help.pythonanywhere.com/pages/Flask/
+- Python Anywhere: https://help.pythonanywhere.com/pages/Flask/
 
 ## Solução monolítica x micro-serviços
 
